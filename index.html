@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Added link to the jQuery Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Added a link to Bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+    <h1>The Psychic Game</h1>
+    <p id="directions">Guess what letter I'm thinking of</p>
+    <p id="wins">Wins:</p>
+    <p id="losses">Losses:</p>
+    <p id="guesses">Guesses Left:</p>
+    <p id="guessed">Your guesses so far:</p>
+
+    <script type="text/javascript">
+
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 10;
+        var yourGuesses = "";
+            
+        var letter = "abcdefghijklmnopqrstuvwxyz";
+        var randomletter = Math.floor(Math.random() * 26);
+    
+
+        function reset () {
+        guessesLeft = 10;
+        yourGuesses = "";
+        randomletter = Math.floor(Math.random() * 26); 
+        document.getElementById("guesses").innerHTML = "Guesses Left: " + guessesLeft;
+         document.getElementById("guessed").innerHTML = "Your guesses so far: " ;
+        }
+        document.onkeyup = function (event) {
+            if (event.key === letter [randomletter]) {
+                document.getElementById("wins").innerHTML = "Wins: " + ++wins;
+                document.getElementById("directions").innerHTML = "You Won!";
+                reset();
+            } else if  (event.key !== randomletter && guessesLeft > 0) {  
+            document.getElementById("guesses").innerHTML = "Guesses Left: " + --guessesLeft;
+            yourGuesses += event.key;
+            document.getElementById("guessed").innerHTML = "Your guesses so far: " + yourGuesses + " ";
+            }  else { 
+            document.getElementById("losses").innerHTML = "Losses: " + ++losses; 
+            document.getElementById("directions").innerHTML = "You lost. Please pick a letter to play again!"
+            reset();  }  
+        }
+    </script>
+    </body>
+   </html>
